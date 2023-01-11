@@ -15,9 +15,8 @@ Our work is trained and evaluated on the Aerial Image Database for Emergency Res
 AIDER subset image sets distribution in our approach:
 
 | Class  | Train | Valid | Test | Total per Class |
-| ------ | ------|
-| Collapsed Building | Content Cell  |
-| Fire | Content Cell  |
+| ------ | ------| ------| ------| ------|
+
 
 # Some Results
 
