@@ -21,9 +21,16 @@ AIDER subset image sets distribution in our approach:
 |Flood| 252 | 63 | 211 | 526 |
 |Traffic| 232 | 59 | 194 | 485 |
 |Normal| 2107 | 527 | 1756 | 4390 |
+|Total per Set| 3207 | 753 | 2473 | 6433 |
 
 
 # Some Results
+
+All the SOTA and our approach are trained from scratch on the AIDER susbet and serves as a baseline. 
+
+| SOTA Model | F1 (%) | FLOPs | Parameters |
+| ------ | ------| ------| ------|
+
 
 # Citation Information
 
