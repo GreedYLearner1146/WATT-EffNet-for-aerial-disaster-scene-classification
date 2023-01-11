@@ -28,6 +28,20 @@ AIDER subset image sets distribution in our approach:
 
 We experimented with 1, 3 and 5 MBConv blocks in the EfficienNetB0 architecture, utilizing a width of 12 for 1MBConv block, widths of 2 to 7 for 3MBConv blocks and width factors of 2 and 3 for 5MBConv blocks. Possible combinations of our WATT-EffNet architecture can be written in the form WATT-EffNet-*d*-*k*, where *d* is the number of MBConv blocks and *k* is the width factor per block.
 
+WATT-EffNet model variants:
+
+| Model variant | F1 (%) | FLOPs | Parameters |
+| ------ | ------| ------| ------|
+| WATT-EffNet-1-12| 83.5 | 22 | 106,501 |
+| WATT-EffNet-3-2| 84.2 | 22 | 106,629 |
+| WATT-EffNet-3-3| 83.3 | 22 | 205,673 |
+| WATT-EffNet-3-4| 86.0 | 22 | 335,693 |
+| WATT-EffNet-3-5| 85.2 | 22 | 496,689 |
+| **WATT-EffNet-3-6**| **88.5** | **22** | **688,661** |
+| WATT-EffNet-3-7 | 87.3 | 22 | 911,609 |
+| WATT-EffNet-5-2 | 86.8 | 22 | 371,493 |
+| WATT-EffNet-5-3 | 86.4 | 22 | 720,233 |
+
 All the SOTA and our approach are trained from scratch on the AIDER subset and serves as a baseline. The SOTA evaluated include MobileNetV1 [2], MobileNetV2 [3], SqueezeNet [4], ShuffleNet [5], EfficientNetB0 [6] and EmergencyNet [2]. The optimal variant of our propsoed approach is the WATT-EffNet-3-6, which comprised of 3 MB Conv blocks and a width factor of 6. 
 
 | SOTA Model | F1 (%) | FLOPs | Parameters |
