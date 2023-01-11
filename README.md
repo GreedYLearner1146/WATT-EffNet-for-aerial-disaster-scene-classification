@@ -26,6 +26,8 @@ AIDER subset image sets distribution in our approach:
 
 # Some Results
 
+Due to the imbalance class distribution of the AIDER subset, we utilized the mean F1 scores for the classification effectiveness evaluation and the floating point operations per second (FLOPs) for the efficiency computation.
+
 We experimented with 1, 3 and 5 MBConv blocks in the EfficienNetB0 architecture, utilizing a width of 12 for 1MBConv block, widths of 2 to 7 for 3MBConv blocks and width factors of 2 and 3 for 5MBConv blocks. Possible combinations of our WATT-EffNet architecture can be written in the form WATT-EffNet-*d*-*k*, where *d* is the number of MBConv blocks and *k* is the width factor per block. Each variant is ran for 10 times during the evaluation and its mean F1 scores and corresponding standard deviation are recorded.
 
 WATT-EffNet model variants:
