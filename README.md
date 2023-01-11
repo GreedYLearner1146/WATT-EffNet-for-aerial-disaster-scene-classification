@@ -16,12 +16,12 @@ AIDER subset image sets distribution in our approach:
 
 | Class | Train | Valid | Test | Total per Class |
 | ------ | ------| ------| ------| ------|
-|Collapsed Building| 367 | 41 | 103 | 511 |
-|Fire| 249 | 63 | 209 | 521 |
-|Flood| 252 | 63 | 211 | 526 |
-|Traffic| 232 | 59 | 194 | 485 |
-|Normal| 2107 | 527 | 1756 | 4390 |
-|Total per Set| 3207 | 753 | 2473 | 6433 |
+|#Collapsed Building| 367 | 41 | 103 | 511 |
+|#Fire| 249 | 63 | 209 | 521 |
+|#Flood| 252 | 63 | 211 | 526 |
+|#Traffic| 232 | 59 | 194 | 485 |
+|#Normal| 2107 | 527 | 1756 | 4390 |
+|#Total per Set| 3207 | 753 | 2473 | #6433 |
 
 
 # Some Results
@@ -35,8 +35,8 @@ All the SOTA and our approach are trained from scratch on the AIDER subset and s
 | SqueezeNet [4]| 87.3 | 531 | 725,073 |
 | ShuffleNet [5]| 84.7 | 972 | 4,023,865 |
 | EfficientNetB0 [6]| 80.0 | 774 | 3,499,453 |
-| EmergencyNet [2]| 84.5 | 185 | 94,420 |
-| WATT-EffNet-3-6 | 88.5 | 22 | 688,661 |
+| EmergencyNet [2]| 84.5 | 185 | #94,420 |
+| #WATT-EffNet-3-6 | #88.5 | #22 | 688,661 |
 
 # Citation Information
 
