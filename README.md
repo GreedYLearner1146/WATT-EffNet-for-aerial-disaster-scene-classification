@@ -26,7 +26,7 @@ AIDER subset image sets distribution in our approach:
 
 # Some Results
 
-We experimented with 1, 3 and 5 MBConv blocks in the EfficienNetB0 architecture, utilizing a width of 12 for 1MBConv block, widths of 2 to 7 for 3MBConv blocks and width factors of 2 and 3 for 5MBCOnv blocks. 
+We experimented with 1, 3 and 5 MBConv blocks in the EfficienNetB0 architecture, utilizing a width of 12 for 1MBConv block, widths of 2 to 7 for 3MBConv blocks and width factors of 2 and 3 for 5MBConv blocks. Possible combinations of our WATT-EffNet architecture can be written in the form WATT-EffNet-*d*-*k*, where *d* is the number of MBConv blocks and *k* is the width factor per block.
 
 All the SOTA and our approach are trained from scratch on the AIDER subset and serves as a baseline. The SOTA evaluated include MobileNetV1 [2], MobileNetV2 [3], SqueezeNet [4], ShuffleNet [5], EfficientNetB0 [6] and EmergencyNet [2]. The optimal variant of our propsoed approach is the WATT-EffNet-3-6, which comprised of 3 MB Conv blocks and a width factor of 6. 
 
