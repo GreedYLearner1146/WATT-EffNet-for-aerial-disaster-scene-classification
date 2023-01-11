@@ -74,14 +74,14 @@ Earth Observations and Remote Sensing*, vol. 13, pp. 1687–1699, 2020.
 [3] M. Sandler, A. Howard, M. Zhu, A. Zhmoginov, and L.-C. Chen, “Mobilenetv2: Inverted residuals and linear bottlenecks,” in *Proceedings
 of the IEEE conference on computer vision and pattern recognition*, 2018, pp. 4510–4520.
 
-[4] F.Iandola, S. Han, M. Moskewicz, K. Ashraf, W. Dally, and K. Keutzer, “Squeezenet: Alexnet-level accuracy with 50× fewer parameters and 
+[4] F. Iandola, S. Han, M. Moskewicz, K. Ashraf, W. Dally, and K. Keutzer, “Squeezenet: Alexnet-level accuracy with 50× fewer parameters and 
 0.5 mb model size”, *arXiv preprint arXiv:1602.07360*, 2016.
 
 [5] N. Ma, X. Zhang, H.-T. Zheng, and J. Sun, “Shufflenet v2: Practical guidelines for efficient cnn architecture design”, in *Proceedings of the
 European conference on computer vision (ECCV)*, 2018, pp. 116–131.
 
-[6] M.Tan and Q. Le, “Efficientnet: Rethinking model scaling for convolutional neural networks,” in *International conference on machine
-learning*, PMLR, 2019, pp. 6105–6114
+[6] M. Tan and Q. Le, “Efficientnet: Rethinking model scaling for convolutional neural networks,” in *International conference on machine
+learning*, PMLR, 2019, pp. 6105–6114.
 
 
 
