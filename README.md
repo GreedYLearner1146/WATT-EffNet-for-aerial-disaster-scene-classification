@@ -54,6 +54,8 @@ All the SOTA and our approach are trained from scratch on the AIDER subset and s
 | EmergencyNet [2]| 84.5 | 185 | **94,420** |
 | **WATT-EffNet-3-6** | **88.5** | **22** | 688,661 |
 
+# Code
+
 # Citation Information
 
 Please cite the following paper if you find it useful for your work:
