@@ -63,7 +63,7 @@ A minimal code for training and our proposed network is provided within the code
 
 Please cite the following paper if you find it useful for your work:
 
-# References
+# Some References
 
 [1] C. Kyrkou and T. Theocharides, “Emergencynet: Efficient aerial image
 classification for drone-based emergency monitoring using atrous convolutional feature fusion,” *IEEE Journal of Selected Topics in Applied
