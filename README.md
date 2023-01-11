@@ -26,17 +26,17 @@ AIDER subset image sets distribution in our approach:
 
 # Some Results
 
-All the SOTA and our approach are trained from scratch on the AIDER susbet and serves as a baseline. The SOTA evaluated include MobileNetV1 [2], MobileNetV2 [3], SqueezeNet [4], ShuffleNet [5], EfficientNetB0 [6] and EmergencyNet [2]. The optimal variant of our propsoed approach is the WATT-EffNet-3-6, which comprised of 3 MB Conv blocks and a width factor of 6. 
+All the SOTA and our approach are trained from scratch on the AIDER subset and serves as a baseline. The SOTA evaluated include MobileNetV1 [2], MobileNetV2 [3], SqueezeNet [4], ShuffleNet [5], EfficientNetB0 [6] and EmergencyNet [2]. The optimal variant of our propsoed approach is the WATT-EffNet-3-6, which comprised of 3 MB Conv blocks and a width factor of 6. 
 
 | SOTA Model | F1 (%) | FLOPs | Parameters |
 | ------ | ------| ------| ------|
-| MobileNetV1 [2]| 84.0 | ------| ------|
-| MobileNetV2 [3]| 82.0 | ------| ------|
-| SqueezeNet [4]| 87.3 | ------| ------|
-| ShuffleNet [5]| 84.7 | ------| ------|
-| EfficientNetB0 [6]| 80.0 | ------| ------|
-| EmergencyNet [2]| 84.5 | ------| ------|
-| WATT-EffNet-3-6 | 88.5 | ------| ------|
+| MobileNetV1 [2]| 84.0 | 1136| 3,233,861 |
+| MobileNetV2 [3]| 82.0 | 600 | 2,282,629 |
+| SqueezeNet [4]| 87.3 | 531 | 725,073 |
+| ShuffleNet [5]| 84.7 | 972 | 4,023,865 |
+| EfficientNetB0 [6]| 80.0 | 774 | 3,499,453 |
+| EmergencyNet [2]| 84.5 | 185 | 94,420 |
+| WATT-EffNet-3-6 | 88.5 | 22 | 688,661 |
 
 # Citation Information
 
