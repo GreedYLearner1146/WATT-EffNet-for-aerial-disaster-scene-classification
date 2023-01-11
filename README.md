@@ -13,3 +13,10 @@ See WATT-EffNet Structure FINAL.png for an illustration of our algorithmic archi
 Our work is trained and evaluated on the Aerial Image Database for Emergency Response subset by Kyrkou and Theocharides [1]. The dataset comprised of images illustrating four major types of disasters: fire, floods, afermath of building collapses and traffic collisions, as well as images of non-disasters (normal class) in a relatively larger amount than the other four to replicate real-world scenario as close as possible. Some samples of the images of each class is shown in AIDER Images Examples.png. Unlike the original dataset which comprised of a total of 8540 images, the subset only contained 6433 images. The AIDER subset can be downloaded from https://zenodo.org/record/3888300.
 
 # Some Results
+
+# Citation Information
+
+Please cite the following paper if you find it useful for your work:
+
+
+
