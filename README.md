@@ -16,6 +16,7 @@ AIDER subset image sets distribution in our approach:
 
 | Class  | Train | Valid | Test | Total per Class |
 | ------ | ------| ------| ------| ------|
+|Collapsed Building | 367 | 41 | 103 | 511 |
 
 
 # Some Results
