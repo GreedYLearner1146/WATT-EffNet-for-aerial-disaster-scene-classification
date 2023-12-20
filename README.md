@@ -1,4 +1,7 @@
 # WATT-EffNet-for-aerial-disaster-scene-classification
+
+Another github page on the same project can be found: at https://github.com/TanmDL/WATT-EffNet/tree/main 
+
 This is a github repository for our work on "A Novel Wider ATTention EFFicientNet (WATT-EffNet) for Classifiying Aerial Disaster Images" by Gao Yu Lee, Tanmoy Dam, Md Meftahul Ferdaus, Daniel Puiu Poenar and Vu N. Duong.
 
 Our proposed algorithmic structure are designed with applications to UAV-based aerial image disaster scene classification.
