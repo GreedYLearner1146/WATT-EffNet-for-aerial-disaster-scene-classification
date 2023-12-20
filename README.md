@@ -59,7 +59,7 @@ All the SOTA and our approach are trained from scratch on the AIDER subset and s
 | **WATT-EffNet-3-6** | **88.5** | **22** | 688,661 |
 
 # Code
-Instructions to be updated.
+(Instructions to be updated).
 
 # Citation Information
 
