@@ -64,8 +64,7 @@ All the SOTA and our approach are trained from scratch on the AIDER subset and s
 # Citation Information
 
 Please cite the following paper if you find it useful for your work:
-
-G. Y. Lee, T. Dam, M. M. Ferdaus, D. P. Poenar and V. N. Duong, "WATT-EffNet: A Lightweight and Accurate Model for Classifying Aerial Disaster Images," in IEEE Geoscience and Remote Sensing Letters, vol. 20, pp. 1-5, 2023, Art no. 6005205, doi: 10.1109/LGRS.2023.3270227.
+G. Y. Lee, T. Dam, M. M. Ferdaus, D. P. Poenar and V. N. Duong, "WATT-EffNet: A Lightweight and Accurate Model for Classifying Aerial Disaster Images," in *IEEE Geoscience and Remote Sensing Letters*, vol. 20, pp. 1-5, 2023, Art no. 6005205, doi: 10.1109/LGRS.2023.3270227.
 
 # Some References
 
