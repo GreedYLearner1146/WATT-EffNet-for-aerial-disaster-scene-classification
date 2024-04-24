@@ -11,7 +11,7 @@ Unmanned aerial vehicles (UAVs) embedded with a deep learning (DL) classificatio
 
 See WATT-EffNet Structure FINAL.png for an illustration of our algorithmic architecture design.
 
-**(Github Page is updating in progress. Stay tune for updates)**
+**This repo may be updated at times.**
 
 # Dataset
 
