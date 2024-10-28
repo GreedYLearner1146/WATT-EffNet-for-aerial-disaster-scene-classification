@@ -79,6 +79,16 @@ Please cite the following paper if you find it useful for your work: \
 
 G. Y. Lee, T. Dam, M. M. Ferdaus, D. P. Poenar and V. N. Duong, "WATT-EffNet: A Lightweight and Accurate Model for Classifying Aerial Disaster Images," in *IEEE Geoscience and Remote Sensing Letters*, vol. 20, pp. 1-5, 2023, Art no. 6005205, doi: 10.1109/LGRS.2023.3270227.
 
+@article{lee2023watt, \
+  title={Watt-effnet: A lightweight and accurate model for classifying aerial disaster images}, \
+  author={Lee, Gao Yu and Dam, Tanmoy and Ferdaus, Md Meftahul and Poenar, Daniel Puiu and Duong, Vu N}, \
+  journal={IEEE Geoscience and Remote Sensing Letters}, \
+  volume={20}, \
+  pages={1--5}, \
+  year={2023}, \
+  publisher={IEEE}
+}
+
 # Some References
 
 [1] C. Kyrkou and T. Theocharides, “Emergencynet: Efficient aerial image
