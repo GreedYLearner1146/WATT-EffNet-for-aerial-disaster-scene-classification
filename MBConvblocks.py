@@ -1,5 +1,5 @@
 import tensorflow as tf
-import tf_keras  # FOR NEW VERSIOn OF TENSORFLOW/KERAS.
+import tf_keras
 import math
 from tensorflow.keras.layers import Conv2D, ReLU, Add, MaxPool2D, UpSampling2D, BatchNormalization, concatenate, Subtract
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, ZeroPadding2D, Add, Activation, Conv2DTranspose,GlobalAveragePooling2D,DepthwiseConv2D
@@ -48,12 +48,12 @@ class SEBlock(Layer):
 
     def call(self, inputs, **kwargs):
         branch = self.pool(inputs)
-        branch = tf.expand_dims(input=branch, axis=1)
-        branch = tf.expand_dims(input=branch, axis=1)
+        branch = tf.keras.ops.expand_dims(branch, axis=1)
+        branch = tf.keras.ops.expand_dims(branch, axis=1)
         branch = self.reduce_conv(branch)
         branch = swish(branch)
         branch = self.expand_conv(branch)
-        branch = tf.nn.sigmoid(branch)
+        branch = tf.keras.ops.sigmoid(branch)
         output = inputs * branch
         return output
 
@@ -73,20 +73,20 @@ class MBConv(Layer):
                                             strides=1, kernel_regularizer = regularizers.L2(1e-6),
                                             padding="same")
         self.bn1 = BatchNormalization()
-        self.dwconv = tf_keras.layers.DepthwiseConv2D(kernel_size=(k, k),
+        self.dwconv = keras.layers.DepthwiseConv2D(kernel_size=(k, k),
                                                       strides=stride,
                                                       padding="same")
-        self.bn2 = tf.keras.layers.BatchNormalization()
-        self.dwconv2 = tf_keras.layers.DepthwiseConv2D(kernel_size=(k, k),
+        self.bn2 = keras.layers.BatchNormalization()
+        self.dwconv2 = keras.layers.DepthwiseConv2D(kernel_size=(k, k),
                                                       strides=stride,
                                                       padding="same")
         self.bn22 = BatchNormalization()
         self.se = SEBlock(input_channels=in_channels * expansion_factor)       # WIDTH ????
-        self.conv2 = tf_keras.layers.Conv2D(filters=out_channels,
+        self.conv2 = keras.layers.Conv2D(filters=out_channels,
                                             kernel_size=(1, 1),
                                             strides=1, kernel_regularizer = regularizers.L2(1e-6),
                                             padding="same")
-        self.bn3 = tf_keras.layers.BatchNormalization()
+        self.bn3 = keras.layers.BatchNormalization()
         self.dropout = Dropout(rate=drop_connect_rate)
 
 
@@ -115,6 +115,7 @@ class MBConv(Layer):
 
 
 ###################### One MBConv block code architecture #############################################
+
 def build_mbconv_block(in_channels, out_channels, layers, stride, expansion_factor, k, drop_connect_rate):
     block = tf_keras.Sequential()
     for i in range(layers):
