@@ -68,7 +68,7 @@ All the SOTA and our approach are trained from scratch on the AIDER subset and s
 2) Due to the imbalance class nature of the subset, run Undersampling.py to perform undersampling of the classes so that the imbalance would be removed.
 3) Run one_hot_encode.py to convert the numerical labels into one-hot encoded label. **Note: Due to tensorflow/Keras version update, sparse=False has become sparse_output=False. Please use the latest syntax**.
 4) Run Attention.py for the attention module.
-5) Run the MBConvblocks.py.
+5) Run the MBConvblocks.py. **Note: Please install tf_keras first, as tf.keras is of an older version and may not work on the new version.**
 6) Run the watt-effnet-3-6.py. Note that based on our experiment, the WATT-EffNet-3-6 is the ideal WATT-EffNet configuration. The attention is imbued in the architecture.
 7) Proceed to train the model.
 8) Finally, run the F1 metrics.py to output the F1 score, and the compute_flops.py to output the flops value.
