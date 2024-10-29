@@ -137,7 +137,7 @@ def build_mbconv_block(in_channels, out_channels, layers, stride, expansion_fact
 ########### Using the EfficientNet code block, adjust the number of MBConv blocks via adding the `build_mbconv_block' function ########################
 ######################################## Below code show the 1 MBConv block scenario #################################################################
 
-class EfficientNet(tf_keras.Model):
+class EfficientNet(tf.keras.Model):
     def __init__(self, width_coefficient, depth_coefficient, dropout_rate, drop_connect_rate=0.5):
         super(EfficientNet, self).__init__()
 
