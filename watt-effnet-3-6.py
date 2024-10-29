@@ -10,7 +10,7 @@ NUM_CLASSES = 5
 ################################ THE OPTIMAL WATT-EFFNET (3-6) CONFIGURATION CODE ###################################################################
 
 def swish(x):
-    return x * tf.nn.sigmoid(x)
+    return x * tf.keras.ops.sigmoid(x)
 
 
 def round_filters(filters, multiplier):
@@ -46,12 +46,12 @@ class SEBlock(Layer):
 
     def call(self, inputs, **kwargs):
         branch = self.pool(inputs)
-        branch = tf.expand_dims(input=branch, axis=1)
-        branch = tf.expand_dims(input=branch, axis=1)
+        branch = tf.keras.ops.expand_dims(branch, axis=1)
+        branch = tf.keras.ops.expand_dims(branch, axis=1)
         branch = self.reduce_conv(branch)
         branch = swish(branch)
         branch = self.expand_conv(branch)
-        branch = tf.nn.sigmoid(branch)
+        branch = tf.keras.ops.sigmoid(branch)
         output = inputs * branch
         return output
 
@@ -113,7 +113,7 @@ class MBConv(Layer):
 
 
 def build_mbconv_block(in_channels, out_channels, layers, stride, expansion_factor, k, drop_connect_rate):
-    block = tf.keras.Sequential()
+    block = tf_keras.Sequential()
     for i in range(layers):
         if i == 0:
             block.add(MBConv(in_channels=in_channels,
