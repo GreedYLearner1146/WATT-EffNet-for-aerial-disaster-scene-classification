@@ -1,4 +1,5 @@
 import tensorflow as tf
+import tf_keras  # FOR NEW VERSIOn OF TENSORFLOW/KERAS.
 import math
 from tensorflow.keras.layers import Conv2D, ReLU, Add, MaxPool2D, UpSampling2D, BatchNormalization, concatenate, Subtract
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, ZeroPadding2D, Add, Activation, Conv2DTranspose,GlobalAveragePooling2D,DepthwiseConv2D
@@ -10,7 +11,7 @@ NUM_CLASSES = 5    # No. of classes in our analysis.
 ########### The swish activation function #############
 
 def swish(x):
-    return x * tf.nn.sigmoid(x)
+    return x * tf.keras.ops.sigmoid(x)
 
 ######## For the build_mbconv_block code #############
 def round_filters(filters, multiplier):
@@ -72,20 +73,20 @@ class MBConv(Layer):
                                             strides=1, kernel_regularizer = regularizers.L2(1e-6),
                                             padding="same")
         self.bn1 = BatchNormalization()
-        self.dwconv = tf.keras.layers.DepthwiseConv2D(kernel_size=(k, k),
+        self.dwconv = tf_keras.layers.DepthwiseConv2D(kernel_size=(k, k),
                                                       strides=stride,
                                                       padding="same")
         self.bn2 = tf.keras.layers.BatchNormalization()
-        self.dwconv2 = tf.keras.layers.DepthwiseConv2D(kernel_size=(k, k),
+        self.dwconv2 = tf_keras.layers.DepthwiseConv2D(kernel_size=(k, k),
                                                       strides=stride,
                                                       padding="same")
         self.bn22 = BatchNormalization()
         self.se = SEBlock(input_channels=in_channels * expansion_factor)       # WIDTH ????
-        self.conv2 = tf.keras.layers.Conv2D(filters=out_channels,
+        self.conv2 = tf_keras.layers.Conv2D(filters=out_channels,
                                             kernel_size=(1, 1),
                                             strides=1, kernel_regularizer = regularizers.L2(1e-6),
                                             padding="same")
-        self.bn3 = tf.keras.layers.BatchNormalization()
+        self.bn3 = tf_keras.layers.BatchNormalization()
         self.dropout = Dropout(rate=drop_connect_rate)
 
 
@@ -115,7 +116,7 @@ class MBConv(Layer):
 
 ###################### One MBConv block code architecture #############################################
 def build_mbconv_block(in_channels, out_channels, layers, stride, expansion_factor, k, drop_connect_rate):
-    block = tf.keras.Sequential()
+    block = tf_keras.Sequential()
     for i in range(layers):
         if i == 0:
             block.add(MBConv(in_channels=in_channels,
@@ -136,7 +137,7 @@ def build_mbconv_block(in_channels, out_channels, layers, stride, expansion_fact
 ########### Using the EfficientNet code block, adjust the number of MBConv blocks via adding the `build_mbconv_block' function ########################
 ######################################## Below code show the 1 MBConv block scenario #################################################################
 
-class EfficientNet(tf.keras.Model):
+class EfficientNet(tf_keras.Model):
     def __init__(self, width_coefficient, depth_coefficient, dropout_rate, drop_connect_rate=0.5):
         super(EfficientNet, self).__init__()
 
