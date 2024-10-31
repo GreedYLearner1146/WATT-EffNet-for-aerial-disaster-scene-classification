@@ -13,7 +13,7 @@ See WATT-EffNet Structure FINAL.png for an illustration of our algorithmic archi
 
 **The training weights of the optimal configuration are contained in the weights file**
 
-**This repo is currently being updated to suit to latest ver of tensorflow/keras. Please stay tune for updates. **
+**This repo is currently being updated to suit to latest ver of tensorflow/keras. Please stay tune for updates.**
 
 # Dataset
 
