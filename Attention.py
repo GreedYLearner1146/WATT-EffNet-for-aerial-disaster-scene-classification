@@ -14,8 +14,7 @@ def attach_attention_module(net, attention_module):
 
   return net
 
-############## Squeeze and Excite Block ##########################################
-def se_block(input_feature, ratio=8):
+def se_block(input_feature, ratio=4):
     """Contains the implementation of Squeeze-and-Excitation(SE) block.
     As described in https://arxiv.org/abs/1709.01507.
     """
@@ -44,8 +43,7 @@ def se_block(input_feature, ratio=8):
     se_feature = multiply([input_feature, se_feature])
     return se_feature
 
-############## CBAM block serving as attention #########################################
-def cbam_block(cbam_feature, ratio=8):
+def cbam_block(cbam_feature, ratio=4):
     """Contains the implementation of Convolutional Block Attention Module(CBAM) block.
     As described in https://arxiv.org/abs/1807.06521.
     """
@@ -54,8 +52,7 @@ def cbam_block(cbam_feature, ratio=8):
     cbam_feature = spatial_attention(cbam_feature)
     return cbam_feature
 
-############## Channel Attention #########################################
-def channel_attention(input_feature, ratio=8):
+def channel_attention(input_feature, ratio=4):
 
     channel_axis = 1 if K.image_data_format() == "channels_first" else -1
     channel = input_feature.shape[channel_axis]
@@ -94,7 +91,6 @@ def channel_attention(input_feature, ratio=8):
 
     return multiply([input_feature, cbam_feature])
 
-############## Spatial Attention #########################################
 def spatial_attention(input_feature):
     kernel_size = 7
 
@@ -105,9 +101,9 @@ def spatial_attention(input_feature):
         channel = input_feature.shape[-1]
         cbam_feature = input_feature
 
-    avg_pool = Lambda(lambda x: K.mean(x, axis=3, keepdims=True))(cbam_feature)
+    avg_pool = Lambda(lambda x: tf.keras.ops.mean(x, axis=3, keepdims=True), output_shape = (None,None,1))(cbam_feature)  # Need add the output_shape!
     assert avg_pool.shape[-1] == 1
-    max_pool = Lambda(lambda x: K.max(x, axis=3, keepdims=True))(cbam_feature)
+    max_pool = Lambda(lambda x: tf.keras.ops.max(x, axis=3, keepdims=True), output_shape = (None,None,1))(cbam_feature)   # Need add the output_shape!
     assert max_pool.shape[-1] == 1
     concat = Concatenate(axis=3)([avg_pool, max_pool])
     assert concat.shape[-1] == 2
