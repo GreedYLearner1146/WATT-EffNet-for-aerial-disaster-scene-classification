@@ -1,19 +1,19 @@
 import tensorflow as tf
-import tf_keras
+import tf_keras as keras
 import math
 from tensorflow.keras.layers import Conv2D, ReLU, Add, MaxPool2D, UpSampling2D, BatchNormalization, concatenate, Subtract
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, ZeroPadding2D, Add, Activation, Conv2DTranspose,GlobalAveragePooling2D,DepthwiseConv2D
 
 from tensorflow.keras import regularizers
 
-NUM_CLASSES = 5    # No. of classes in our analysis.
+NUM_CLASSES = 5
 
-########### The swish activation function #############
+################################ THE OPTIMAL WATT-EFFNET (3-6) CONFIGURATION CODE ###################################################################
 
 def swish(x):
     return x * tf.keras.ops.sigmoid(x)
 
-######## For the build_mbconv_block code #############
+
 def round_filters(filters, multiplier):
     depth_divisor = 8
     min_depth = None
@@ -24,13 +24,12 @@ def round_filters(filters, multiplier):
         new_filters += depth_divisor
     return int(new_filters)
 
-######## For the build_mbconv_block code #############
+
 def round_repeats(repeats, multiplier):
     if not multiplier:
         return repeats
     return int(math.ceil(multiplier * repeats))
 
-########### The SE blocks #############
 
 class SEBlock(Layer):
     def __init__(self, input_channels, ratio=0.25):
@@ -39,11 +38,11 @@ class SEBlock(Layer):
         self.pool = GlobalAveragePooling2D()
         self.reduce_conv = Conv2D(filters=self.num_reduced_filters,
                                                   kernel_size=(1, 1),
-                                                  strides=1, kernel_regularizer = regularizers.L2(1e-6), padding="same")
+                                                  strides=1, kernel_regularizer = regularizers.L2(1e-4), padding="same")
 
         self.expand_conv = Conv2D(filters=input_channels,
                                                   kernel_size=(1, 1),
-                                                  strides=1, kernel_regularizer = regularizers.L2(1e-6),
+                                                  strides=1, kernel_regularizer = regularizers.L2(1e-4),
                                                   padding="same")
 
     def call(self, inputs, **kwargs):
@@ -60,7 +59,7 @@ class SEBlock(Layer):
     def from_config(cls, config):
         return cls(**config)
 
-####################################### The MBConv class ##########################################
+
 class MBConv(Layer):
     def __init__(self, in_channels, out_channels, expansion_factor, stride, k, drop_connect_rate):
         super(MBConv, self).__init__()
@@ -68,25 +67,22 @@ class MBConv(Layer):
         self.out_channels = out_channels
         self.stride = stride
         self.drop_connect_rate = drop_connect_rate
-        self.conv1 = Conv2D(filters=in_channels * expansion_factor,         # WIDTH ????
+        self.conv1 = Conv2D(filters=in_channels * expansion_factor,         
                                             kernel_size=(1, 1),
-                                            strides=1, kernel_regularizer = regularizers.L2(1e-6),
+                                            strides=1, kernel_regularizer = regularizers.L2(1e-4),
                                             padding="same")
         self.bn1 = BatchNormalization()
-        self.dwconv = keras.layers.DepthwiseConv2D(kernel_size=(k, k),
+        self.dwconv = tf.keras.layers.DepthwiseConv2D(kernel_size=(k, k),
                                                       strides=stride,
                                                       padding="same")
-        self.bn2 = keras.layers.BatchNormalization()
-        self.dwconv2 = keras.layers.DepthwiseConv2D(kernel_size=(k, k),
-                                                      strides=stride,
-                                                      padding="same")
-        self.bn22 = BatchNormalization()
-        self.se = SEBlock(input_channels=in_channels * expansion_factor)       # WIDTH ????
-        self.conv2 = keras.layers.Conv2D(filters=out_channels,
+        self.bn2 = tf.keras.layers.BatchNormalization()
+
+        self.se = SEBlock(input_channels=in_channels * expansion_factor)       
+        self.conv2 = tf.keras.layers.Conv2D(filters=out_channels,
                                             kernel_size=(1, 1),
-                                            strides=1, kernel_regularizer = regularizers.L2(1e-6),
+                                            strides=1, kernel_regularizer = regularizers.L2(1e-4),
                                             padding="same")
-        self.bn3 = keras.layers.BatchNormalization()
+        self.bn3 = tf.keras.layers.BatchNormalization()
         self.dropout = Dropout(rate=drop_connect_rate)
 
 
@@ -97,8 +93,8 @@ class MBConv(Layer):
         x = swish(x)
         x = self.dwconv(x)
         x = self.bn2(x, training=training)
-        x = self.dwconv2(x)
-        x = self.bn22(x, training=training)
+        #x = self.dwconv2(x)
+        #x = self.bn22(x, training=training)
 
         x = self.se(x)
         x = swish(x)
@@ -114,10 +110,9 @@ class MBConv(Layer):
         return cls(**config)
 
 
-###################### One MBConv block code architecture #############################################
-
 def build_mbconv_block(in_channels, out_channels, layers, stride, expansion_factor, k, drop_connect_rate):
-    block = tf_keras.Sequential()
+    block = keras.Sequential()
+
     for i in range(layers):
         if i == 0:
             block.add(MBConv(in_channels=in_channels,
@@ -133,35 +128,62 @@ def build_mbconv_block(in_channels, out_channels, layers, stride, expansion_fact
                              stride=1,
                              k=k,
                              drop_connect_rate=drop_connect_rate))
+
     return block
 
-########### Using the EfficientNet code block, adjust the number of MBConv blocks via adding the `build_mbconv_block' function ########################
-######################################## Below code show the 1 MBConv block scenario #################################################################
 
 class EfficientNet(tf.keras.Model):
     def __init__(self, width_coefficient, depth_coefficient, dropout_rate, drop_connect_rate=0.5):
         super(EfficientNet, self).__init__()
 
-        self.conv1 = Conv2D(filters=round_filters(32, width_coefficient),   #32
+        self.conv1 = Conv2D(filters=round_filters(32, width_coefficient),   # Ideal : 32
                                             kernel_size=(3, 3),
-                                            strides=2, kernel_regularizer = regularizers.L2(1e-6),
+                                            strides=2, kernel_regularizer = regularizers.L2(1e-4),
                                             padding="same")
         self.bn1 = BatchNormalization()
-        self.block1 = build_mbconv_block(in_channels=round_filters(32, width_coefficient),
-                                         out_channels=round_filters(16, width_coefficient),
+
+
+
+        self.block1 = build_mbconv_block(in_channels=round_filters(32, width_coefficient),   # 32: Ideal 32
+                                         out_channels=round_filters(16, width_coefficient),  # 16: Ideal 16
                                          layers=round_repeats(1, depth_coefficient),  #1
                                          stride=1,  # 1, 1, 3.
-                                         expansion_factor=3, k=3, drop_connect_rate=drop_connect_rate)   # CHANGE EXPANSION FACTOR HERE!
-        #self.block2 = build_mbconv_block(in_channels=round_filters(16, width_coefficient),
-                                        # out_channels=round_filters(24, width_coefficient),
-                                         #layers=round_repeats(2, depth_coefficient),  #2
-                                         #stride=2,   # 2,6,3
-                                         #expansion_factor = 42, k=3, drop_connect_rate=drop_connect_rate)   # CHANGE EXPANSION FACTOR HERE!
-        #self.block3 = build_mbconv_block(in_channels=round_filters(24, width_coefficient),
-                                         #out_channels=round_filters(40, width_coefficient),
-                                         #layers=round_repeats(2, depth_coefficient),
-                                         #stride=2,   #2,6,5
-                                         #expansion_factor=6, k=5, drop_connect_rate=drop_connect_rate)
+                                         expansion_factor=6, k=3, drop_connect_rate=drop_connect_rate)   # CHANGE EXPANSION FACTOR HERE!
+
+        self.block2 = build_mbconv_block(in_channels=round_filters(16, width_coefficient),     # 16: Ideal 16
+                                         out_channels=round_filters(24, width_coefficient),    # 24: Ideal 24
+                                         layers=round_repeats(2, depth_coefficient),  #2
+                                         stride=2,   # 2,6,3
+                                         expansion_factor = 6, k=3, drop_connect_rate=drop_connect_rate)   # CHANGE EXPANSION FACTOR HERE!
+
+        self.block3 = build_mbconv_block(in_channels=round_filters(24, width_coefficient),     # 24: Ideal 24
+                                         out_channels=round_filters(40, width_coefficient),    # 40: Ideal 40
+                                         layers=round_repeats(2, depth_coefficient),
+                                         stride=2,   #2,6,5
+                                         expansion_factor=6, k=5, drop_connect_rate=drop_connect_rate)     # CHANGE EXPANSION FACTOR HERE!  k = 5
+
+        self.conv2 = Conv2D(filters=round_filters(32, width_coefficient),   # Ideal: 32
+                                            kernel_size=(3, 3),
+                                            strides=2, kernel_regularizer = regularizers.L2(1e-4),
+                                            padding="same")
+
+
+        self.bn2 = BatchNormalization()
+
+        self.conv3 = Conv2D(filters=round_filters(64, width_coefficient),   # Ideal: 64
+                                            kernel_size=(3, 3),
+                                            strides=2, kernel_regularizer = regularizers.L2(1e-4),
+                                            padding="same")
+
+
+        self.bn3 = BatchNormalization()
+
+        self.conv4 = Conv2D(filters=round_filters(32, width_coefficient),   # Ideal: 32
+                                            kernel_size=(3, 3),
+                                            strides=2, kernel_regularizer = regularizers.L2(1e-4),
+                                            padding="same")
+
+        self.bn4 = BatchNormalization()
 
         self.pool = GlobalAveragePooling2D()
         self.dropout = Dropout(rate=dropout_rate)
@@ -172,12 +194,28 @@ class EfficientNet(tf.keras.Model):
         x = self.bn1(x, training=training)
         x = swish(x)
         x = self.block1(x)
-        #x = cbam_block(x,4)       # This is where attention are added. 
-       # x = self.block2(x)
-       #x = cbam_block(x,4)
-        #x = self.block3(x)
+       #xc1 = cbam_block(x,4)
+       #x = Add()([x,xc1])
+        x = self.block2(x)
+       #xc2 = cbam_block(x,4)
+       #x = Add()([x,xc2])
+        x = self.block3(x)
+       #xc3 = cbam_block(x,4)
+       #x = Add()([x,xc3])
+
+
+        x = self.conv2(inputs)
+        x = self.bn2(x, training=training)
         x = swish(x)
-        x = Add()([x,x])          # Skip connection.
+        x = Add()([x,x])
+        x = self.conv3(x)
+        x = self.bn3(x, training=training)
+        x = swish(x)
+        x = Add()([x,x])
+        x = self.conv4(x)
+        x = self.bn4(x, training=training)
+        x = swish(x)
+        x = Add()([x,x])
         x = self.pool(x)
         x = self.dropout(x, training=training)
         x = self.fc(x)
@@ -191,14 +229,12 @@ def get_efficient_net(width_coefficient, depth_coefficient, resolution, dropout_
     net = EfficientNet(width_coefficient=width_coefficient,
                        depth_coefficient=depth_coefficient,
                        dropout_rate=dropout_rate)
-    net.build(input_shape=(None, resolution, resolution, 3))
     net.call(Input(shape=(resolution, resolution, 3)))
 
     return net
 
-def efficient_net_b0():
-    return get_efficient_net(1.0, 1.0, 224, 0.1)          # Width 1, Depth 1.
+Watteffnet36 =  get_efficient_net(1.0, 1.0, 224, 0.1)
+Watteffnet36.summary()  # 15,301
 
 efficient_net_b0 =  get_efficient_net(1.0, 1.0, 224, 0.1)    # Width 1, Depth 1.
-#model = Model(Input(224,224,3), efficient_net_b0)          # Input size 224 x 224 x 3. 
 efficient_net_b0.summary()
