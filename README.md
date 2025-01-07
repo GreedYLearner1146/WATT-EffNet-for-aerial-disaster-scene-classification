@@ -73,6 +73,8 @@ All the SOTA and our approach are trained from scratch on the AIDER subset and s
 7) Proceed to train the model. This is found under train.py.
 8) Finally, run the F1 metrics.py to output the F1 score, and the compute_flops.py to output the flops value.
 
+Please use the new weights file with "...weights.h5" as per the newly updated version requirement of keras.
+
 # Citation Information
 
 Please cite the following paper if you find it useful for your work: \
