@@ -11,7 +11,7 @@ Unmanned aerial vehicles (UAVs) embedded with a deep learning (DL) classificatio
 
 See WATT-EffNet Structure FINAL.png for an illustration of our algorithmic architecture design.
 
-**The training weights of the optimal configuration are contained in the weights file**
+**The training weights of the optimal configuration are contained in the weights file.**
 
 **The necessary updates for this repository has been done, but may still be updated in the future.**
 
